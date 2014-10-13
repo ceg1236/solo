@@ -1,6 +1,6 @@
-# Project Name #
+# Mediate in Public #
 
-> Open up this file in an editor to see the comment block
+
 
 <!-- 
 
