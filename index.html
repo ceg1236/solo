@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel='stylesheet' type="text/css" href='style.css'>
+    <script type='text/javascript' src='jquery/dist/jquery.min.js'></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQuBStEQo8SeejyPoeivu0C0lu4XmNjXc">
     </script>
@@ -10,5 +11,10 @@
   </head>
   <body>
 <div id="map-canvas"></div>
+<form action="search">
+  Location: <input type="text" name="location"><br>
+  <input type="submit" value="Submit">
+</form>
+<button id='on'></button>
   </body>
 </html>

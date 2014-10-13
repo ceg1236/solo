@@ -1,6 +1,7 @@
 var map;
 
 function initialize() {
+  var access
   var mapOptions = {
     zoom: 6
   };
@@ -13,13 +14,18 @@ function initialize() {
       var pos = new google.maps.LatLng(position.coords.latitude,
                                        position.coords.longitude);
 
-      var infowindow = new google.maps.InfoWindow({
-        map: map,
+    var infowindow = new google.maps.InfoWindow({
+      map: map,
+      position: pos,
+      content: 'Current Location'
+    });
+    var marker = new google.maps.Marker({
         position: pos,
-        content: 'Location found using HTML5.'
-      });
+        map: map,
+        title: 'Hello World!'
+    });
 
-      map.setCenter(pos);
+    map.setCenter(pos);
     }, function() {
       handleNoGeolocation(true);
     });
@@ -27,6 +33,7 @@ function initialize() {
     // Browser doesn't support Geolocation
     handleNoGeolocation(false);
   }
+
 }
 
 function handleNoGeolocation(errorFlag) {
@@ -38,12 +45,26 @@ function handleNoGeolocation(errorFlag) {
 
   var options = {
     map: map,
-    position: new google.maps.LatLng(60, 105),
+    position: new google.maps.LatLng(37.775, 122.419),
     content: content
   };
+  var marker = new google.maps.Marker({
+      position: options.position,
+      map: map,
+      title: 'Hello World!'
+  });
 
   var infowindow = new google.maps.InfoWindow(options);
   map.setCenter(options.position);
 }
+
+// Click turns marker on
+$(function() {
+  $('#on').on('click', function() {
+    alert('ON'); 
+  })
+});
+// Find location
+
 
 google.maps.event.addDomListener(window, 'load', initialize);

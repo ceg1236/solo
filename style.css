@@ -5,3 +5,14 @@ html, body, #map-canvas {
 	padding: 0;
 }
 
+#on {
+	float:right;
+	color:blue;
+	width:60%;
+	height: 80px;
+}
+
+form {
+	position: absolute;
+}
+
