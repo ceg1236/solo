@@ -6,8 +6,10 @@
 //  -->  Make sure to remove it when the circle ends 
 //  --> Over rendering due to click event and DOM reload -- when click event disabled, we elim extra render
 //     -- but have lost ability to remove circle on next click and after timeOut... 
+// Add current loc button 
 
-var map, geocoder, pos, logged = {},
+var map, geocoder, pos, 
+    logged = {},
     firebase = new Firebase("https://blinding-fire-9877.firebaseio.com/"); 
 
 function initialize() {
@@ -18,6 +20,11 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
+  findLocation();
+  render();
+}
+
+var render = function() {
   firebase.on('value', function(snapshot) {
     var snapshot = snapshot.val();
 
@@ -25,6 +32,7 @@ function initialize() {
     for (var users in snapshot ) {
     
       console.log('logged[users] ', logged[users]); 
+
       if ( logged[users] === undefined ) {
         var user = new google.maps.Circle( {
           strokeColor: '#0099FF',
@@ -37,12 +45,13 @@ function initialize() {
           radius: 20 
         });
         logged[users] = true; 
-      }
-
+      } 
     }
   });
+};
 
   // Try HTML5 geolocation
+var findLocation = function() {
   if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
       pos = new google.maps.LatLng(position.coords.latitude,
@@ -61,8 +70,9 @@ function initialize() {
     // Browser doesn't support Geolocation
     handleNoGeolocation(false);
   }
-
 }
+
+
 
 function handleNoGeolocation(errorFlag) {
   if (errorFlag) {
@@ -86,8 +96,8 @@ var circle, emission,
 
 // Click turns marker on
 $(function() {
-  $('#on').on('click', function() {
-
+  $('#on').on('click', function(e) {
+    console.log(e);
     meditating = !meditating;
     if(meditating) {
       // circle = new google.maps.Circle({
@@ -102,12 +112,15 @@ $(function() {
       // });
       emission = firebase.push({'position': pos });
     setTimeout(function() {         // Circle disappears after 25 mins
-      circle.setVisible(false);
       emission.remove();
-    }, 5000);
+      render(); 
+      // circle.setVisible(false);
+    }, 1500000);
     } else {                        // Toggle circle off 
-      circle.setVisible(false); 
       emission.remove(); 
+      render();
+      // initialize();
+      // e.target.setVisible(false); 
     }
 
   });
