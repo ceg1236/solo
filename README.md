@@ -1,4 +1,4 @@
-# Mediate in Public #
+# Meditate in Public #
 
 
 
