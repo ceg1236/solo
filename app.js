@@ -61,17 +61,21 @@ var circle,
 $(function() {
   $('#on').on('click', function() {
 
-    meditating = true;
-    circle = new google.maps.Circle({
-      strokeColor: '#0099FF',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#3399FF',
-      fillOpacity: 0.35,
-      map: map,
-      center: pos,
-      radius: 24 
-    });
+    meditating = !meditating;
+    if(meditating) {
+      circle = new google.maps.Circle({
+        strokeColor: '#0099FF',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#3399FF',
+        fillOpacity: 0.35,
+        map: map,
+        center: pos,
+        radius: 24 
+      });
+    } else {
+      circle.setVisible(false);  
+    }
 
   });
 
