@@ -1,4 +1,4 @@
-# Meditate in Public #
+# Meditate with Friends #
 
 
 
@@ -15,14 +15,14 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
  -->
  
 ## Heading ##
-  Meditate in Public / Group Meditation / Meta-Meditation
+  Meditate with Friends / Group Meditation / Meta-Meditation
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  
 Bringing people together in a meditative community. 
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+
   Encourage yourself and others in meditative practices by joining groups, or just join the community by meditating where ever you are. 
 
 ## Problem ##
@@ -34,7 +34,7 @@ Bringing people together in a meditative community.
   By adding a community around people who meditate, people can support each other and gather in public - both fulfilling their own practices and raising the public awareness in general. 
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  
 A sense of community in meditation has long been considered an essential part of continuing practice and participation. This app extends your meditative community. 
 
 
@@ -43,7 +43,7 @@ A sense of community in meditation has long been considered an essential part of
   At a basic level, this app simply registers where you are on a map and signifies if you are 'on' or 'off'. The map displays all users who are 'on'.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  
   This app encourages my own meditative practices. When I see people in my area are meditating, I am more likely to do so myself. It can also be a good way to meet good, like-minded people. 
 
 ## Closing and Call to Action ##
