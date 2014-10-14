@@ -7,6 +7,9 @@
 //  --> Over rendering due to click event and DOM reload -- when click event disabled, we elim extra render
 //     -- but have lost ability to remove circle on next click and after timeOut... 
 // Add current loc button 
+// Further ideas: Keep track of stats (total number, total time, broken down by region)
+//                Visualize the data - merge the circles in an area
+
 
 var map, geocoder, pos, 
     logged = {},
@@ -25,14 +28,14 @@ function initialize() {
 }
 
 var render = function() {
+  // emission.remove(); 
+  circle.setVisible(false);
   firebase.on('value', function(snapshot) {
     var snapshot = snapshot.val();
 
-    console.log('snapshot: ', snapshot ); 
+
     for (var users in snapshot ) {
     
-      console.log('logged[users] ', logged[users]); 
-
       if ( logged[users] === undefined ) {
         var user = new google.maps.Circle( {
           strokeColor: '#0099FF',
@@ -72,8 +75,6 @@ var findLocation = function() {
   }
 }
 
-
-
 function handleNoGeolocation(errorFlag) {
   if (errorFlag) {
     var content = 'Error: The Geolocation service failed.';
@@ -100,29 +101,29 @@ $(function() {
     console.log(e);
     meditating = !meditating;
     if(meditating) {
-      // circle = new google.maps.Circle({
-      //   strokeColor: '#0099FF',
-      //   strokeOpacity: 0.8,
-      //   strokeWeight: 2,
-      //   fillColor: '#3399FF',
-      //   fillOpacity: 0.35,
-      //   map: map,
-      //   center: pos,
-      //   radius: 24 
-      // });
+      circle = new google.maps.Circle({
+        strokeColor: '#0099FF',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#3399FF',
+        fillOpacity: 0.35,
+        map: map,
+        center: pos,
+        radius: 24 
+      });
       emission = firebase.push({'position': pos });
     setTimeout(function() {         // Circle disappears after 25 mins
       emission.remove();
       render(); 
-      // circle.setVisible(false);
+      circle.setVisible(false);
     }, 1500000);
     } else {                        // Toggle circle off 
       emission.remove(); 
-      render();
+      circle.setVisible(false);
+      // render();
       // initialize();
       // e.target.setVisible(false); 
     }
-
   });
 });
 
