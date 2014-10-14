@@ -60,7 +60,7 @@ function handleNoGeolocation(errorFlag) {
   map.setCenter(options.position);
 }
 
-var circle,
+var circle, emission,
   meditating = false; 
 
 // Click turns marker on
@@ -79,12 +79,14 @@ $(function() {
         center: pos,
         radius: 24 
       });
-      firebase.push({'location': pos });
+      emission = firebase.push({'location': pos });
     setTimeout(function() {         // Circle disappears after 25 mins
       circle.setVisible(false);
+      emission.remove();
     }, 1500000);
     } else {                        // Toggle circle off 
-      circle.setVisible(false);  
+      circle.setVisible(false); 
+      emission.remove(); 
     }
 
   });
