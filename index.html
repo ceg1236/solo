@@ -6,13 +6,14 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQuBStEQo8SeejyPoeivu0C0lu4XmNjXc">
     </script>
+    <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
     <script type="text/javascript" src='app.js'> </script>
   </head>
   <body>
 <div id="map-canvas"></div>
 <form action="search">
-  <input type="textbox" id="location" value="Enter a location"><br>
-  <input type="submit" value="Submit" onclick="codeAddress()">
+  <input type="textbox" id="address" value="Enter a location"><br>
+  <input type="button" value="Search" onclick="codeAddress()">
 </form>
 <button id='on'></button>
   </body>

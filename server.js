@@ -1,9 +1,9 @@
 var express  = require('express'),
-		app = express();
-
+		app = express(),
+		port = process.env.PORT || 8080;
 
 app.use(express.static(__dirname)); 
 
 
-app.listen(8080);
-console.log('listening on http://localhost:8080');
+app.listen(port);
+console.log('listening on ' + port);

@@ -1,4 +1,10 @@
-var map, geocoder, pos;
+// Add circles with other users
+// Clicking a circle pops up infobox w time of session
+// Get location search working 
+
+
+var map, geocoder, pos,
+    firebase = new Firebase("https://blinding-fire-9877.firebaseio.com/"); 
 
 function initialize() {
   geocoder = new google.maps.Geocoder();
@@ -14,11 +20,11 @@ function initialize() {
       pos = new google.maps.LatLng(position.coords.latitude,
                                        position.coords.longitude);
 
-    var infowindow = new google.maps.InfoWindow({
-      map: map,
-      position: pos,
-      content: 'Current Location'
-    });
+    // var infowindow = new google.maps.InfoWindow({
+    //   map: map,
+    //   position: pos,
+    //   content: 'Current Location'
+    // });
     var marker = new google.maps.Marker({
       position: pos,
       map: map,
@@ -73,6 +79,7 @@ $(function() {
         center: pos,
         radius: 24 
       });
+      firebase.push({'location': pos });
     setTimeout(function() {         // Circle disappears after 25 mins
       circle.setVisible(false);
     }, 1500000);
@@ -81,6 +88,7 @@ $(function() {
     }
 
   });
+});
 
 
 // Find location
@@ -91,15 +99,14 @@ function codeAddress() {
     if (status == google.maps.GeocoderStatus.OK) {
       map.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
+        map: map,
+        position: results[0].geometry.location
       });
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
   });
 }
-});
 
 
 google.maps.event.addDomListener(window, 'load', initialize);
