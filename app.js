@@ -17,11 +17,13 @@ function initialize() {
       mapOptions);
 
   firebase.on('value', function(snapshot) {
-    console.log( snapshot.val() ); 
-    for (var users in snapshot.val() ) {
+    var snapshot = snapshot.val();
+    console.log('snapshot: ', snapshot ); 
+    for (var users in snapshot ) {
 
-      console.log('user : ', users ); 
-      console.log('user locations: ', users.position); 
+      console.log('user : ', typeof users ); 
+      console.log('user locations: ', snapshot[users].position); 
+
       var user = new google.maps.Circle( {
         strokeColor: '#0099FF',
         strokeOpacity: 0.8,
@@ -29,7 +31,7 @@ function initialize() {
         fillColor: '#3399FF',
         fillOpacity: 0.35,
         map: map,
-        center: new google.maps.LatLng( users.location ), 
+        center: new google.maps.LatLng( snapshot[users].position.k , snapshot[users].position.B ), 
         radius: 20 
       })
     }
