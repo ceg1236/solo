@@ -16,6 +16,25 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
+  firebase.on('value', function(snapshot) {
+    console.log( snapshot.val() ); 
+    for (var users in snapshot.val() ) {
+
+      console.log('user : ', users ); 
+      console.log('user locations: ', users.position); 
+      var user = new google.maps.Circle( {
+        strokeColor: '#0099FF',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#3399FF',
+        fillOpacity: 0.35,
+        map: map,
+        center: new google.maps.LatLng( users.location ), 
+        radius: 20 
+      })
+    }
+  });
+
   // Try HTML5 geolocation
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -81,7 +100,7 @@ $(function() {
         center: pos,
         radius: 24 
       });
-      emission = firebase.push({'location': pos });
+      emission = firebase.push({'position': pos });
     setTimeout(function() {         // Circle disappears after 25 mins
       circle.setVisible(false);
       emission.remove();
