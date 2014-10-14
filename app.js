@@ -73,7 +73,10 @@ $(function() {
         center: pos,
         radius: 24 
       });
-    } else {
+    setTimeout(function() {         // Circle disappears after 25 mins
+      circle.setVisible(false);
+    }, 1500000);
+    } else {                        // Toggle circle off 
       circle.setVisible(false);  
     }
 
