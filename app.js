@@ -1,11 +1,13 @@
-// Add circles with other users
-// Clicking a circle pops up infobox w time of session
-// Get location search working on azure
-// Firebase doesn't log when running azure
+// Clicking a circle pops up infobox w time of session  
 // Display all locations in FB on initial map 
+// Over repeats loading of current positions in FB - draws circles on every click 
+//  --> Right now every DOMevent is triggering initialize (bottom line)
+//  -->  If circle has been drawn, log as already drawn to avoid doing again, 
+//  -->  Make sure to remove it when the circle ends 
+//  --> Over rendering due to click event and DOM reload -- when click event disabled, we elim extra render
+//     -- but have lost ability to remove circle on next click and after timeOut... 
 
-
-var map, geocoder, pos,
+var map, geocoder, pos, logged = {},
     firebase = new Firebase("https://blinding-fire-9877.firebaseio.com/"); 
 
 function initialize() {
@@ -18,36 +20,34 @@ function initialize() {
 
   firebase.on('value', function(snapshot) {
     var snapshot = snapshot.val();
+
     console.log('snapshot: ', snapshot ); 
     for (var users in snapshot ) {
+    
+      console.log('logged[users] ', logged[users]); 
+      if ( logged[users] === undefined ) {
+        var user = new google.maps.Circle( {
+          strokeColor: '#0099FF',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#3399FF',
+          fillOpacity: 0.35,
+          map: map,
+          center: new google.maps.LatLng( snapshot[users].position.k , snapshot[users].position.B ), 
+          radius: 20 
+        });
+        logged[users] = true; 
+      }
 
-      console.log('user : ', typeof users ); 
-      console.log('user locations: ', snapshot[users].position); 
-
-      var user = new google.maps.Circle( {
-        strokeColor: '#0099FF',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#3399FF',
-        fillOpacity: 0.35,
-        map: map,
-        center: new google.maps.LatLng( snapshot[users].position.k , snapshot[users].position.B ), 
-        radius: 20 
-      })
     }
   });
 
   // Try HTML5 geolocation
   if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
+      navigator.geolocation.getCurrentPosition(function(position) {
       pos = new google.maps.LatLng(position.coords.latitude,
-                                       position.coords.longitude);
+                                   position.coords.longitude);
 
-    // var infowindow = new google.maps.InfoWindow({
-    //   map: map,
-    //   position: pos,
-    //   content: 'Current Location'
-    // });
     var marker = new google.maps.Marker({
       position: pos,
       map: map,
@@ -55,9 +55,7 @@ function initialize() {
     });
 
     map.setCenter(pos);
-    // }
-    // , function() {
-    //   handleNoGeolocation(true);
+
     });
   } else {
     // Browser doesn't support Geolocation
@@ -92,21 +90,21 @@ $(function() {
 
     meditating = !meditating;
     if(meditating) {
-      circle = new google.maps.Circle({
-        strokeColor: '#0099FF',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#3399FF',
-        fillOpacity: 0.35,
-        map: map,
-        center: pos,
-        radius: 24 
-      });
+      // circle = new google.maps.Circle({
+      //   strokeColor: '#0099FF',
+      //   strokeOpacity: 0.8,
+      //   strokeWeight: 2,
+      //   fillColor: '#3399FF',
+      //   fillOpacity: 0.35,
+      //   map: map,
+      //   center: pos,
+      //   radius: 24 
+      // });
       emission = firebase.push({'position': pos });
     setTimeout(function() {         // Circle disappears after 25 mins
       circle.setVisible(false);
       emission.remove();
-    }, 1500000);
+    }, 5000);
     } else {                        // Toggle circle off 
       circle.setVisible(false); 
       emission.remove(); 
@@ -135,3 +133,4 @@ function codeAddress() {
 
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
