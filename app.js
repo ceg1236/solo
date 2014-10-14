@@ -1,6 +1,8 @@
 // Add circles with other users
 // Clicking a circle pops up infobox w time of session
-// Get location search working 
+// Get location search working on azure
+// Firebase doesn't log when running azure
+// Display all locations in FB on initial map 
 
 
 var map, geocoder, pos,
