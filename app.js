@@ -28,15 +28,17 @@ function initialize() {
 }
 
 var render = function() {
-  // emission.remove(); 
+
   circle.setVisible(false);
+  console.log('renderrr');
   firebase.on('value', function(snapshot) {
     var snapshot = snapshot.val();
 
-
+    console.log('SNAP: ', snapshot); 
+    
     for (var users in snapshot ) {
     
-      if ( logged[users] === undefined ) {
+      // if ( logged[users] === undefined ) {
         var user = new google.maps.Circle( {
           strokeColor: '#0099FF',
           strokeOpacity: 0.8,
@@ -47,8 +49,8 @@ var render = function() {
           center: new google.maps.LatLng( snapshot[users].position.k , snapshot[users].position.B ), 
           radius: 20 
         });
-        logged[users] = true; 
-      } 
+        // logged[users] = true; 
+      // } 
     }
   });
 };
@@ -97,8 +99,8 @@ var circle, emission,
 
 // Click turns marker on
 $(function() {
-  $('#on').on('click', function(e) {
-    console.log(e);
+  $('#on').on('click', function() {
+
     meditating = !meditating;
     if(meditating) {
       circle = new google.maps.Circle({
