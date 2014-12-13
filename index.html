@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='meditation'>
   <head>
     <link rel='stylesheet' type="text/css" href='style.css'>
     <script type='text/javascript' src='jquery/dist/jquery.min.js'></script>
+    <script type='text/javascript' src='bower_components/angular/angular.min.js'></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQuBStEQo8SeejyPoeivu0C0lu4XmNjXc">
     </script>
@@ -11,6 +12,9 @@
     <script type="text/javascript" src='map.js'> </script>
   </head>
   <body>
+
+    <div ng-view></div>
+
 <div id="map-canvas"></div>
 <form action="search">
   <input type="textbox" id="address" value="Enter a location"><br>

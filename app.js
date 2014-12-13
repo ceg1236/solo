@@ -29,6 +29,9 @@
 //   findLocation();
 //   render();
 // }
+angular.module('meditation', [
+
+]);
 
 var renderUsers = function(map) {
 
