@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app='meditation'>
+  <head>
+    <link rel='stylesheet' type="text/css" href='style.css'>
+    <script type='text/javascript' src='bower_components/jquery/dist/jquery.min.js'></script>
+    <script type='text/javascript' src='bower_components/angular/angular.min.js'></script>
+    <script type='text/javascript' src='bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQuBStEQo8SeejyPoeivu0C0lu4XmNjXc">
+    </script>
+    <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
+    <script type="text/javascript" src='app.js'> </script>
+    <script type="text/javascript" src='map.js'> </script>
+  </head>
+  <body>
+
+    <div ui-view></div>
+
+<div id="map-canvas"></div>
+<form action="search">
+  <input type="textbox" id="address" value="Enter a location"><br>
+  <input type="button" value="Search" onclick="codeAddress()">
+  <input type="button" value="Current Location" onclick="findLocation()">
+
+</form>
+<button id='on'></button>
+  </body>
+</html>
